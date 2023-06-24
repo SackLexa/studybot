@@ -15,6 +15,7 @@ def greet_user(update, context):
     logging.info(text)
     update.message.reply_text(text)
 
+
 def talk_to_me(update, context):
     result = 0
     logging.info('User: %s, Message: %s, ChatID: %s', update.message.chat.username, 
@@ -28,13 +29,17 @@ def talk_to_me(update, context):
     sleep(1)
     try:
         result = float(update.message.text)/1
-        update.message.reply_text(f'ВУАЛЯ! \n{update.message.text}/1={result}' )
+        check = result - int(result)
+        if check == 0.0:
+            update.message.reply_text(f'ВУАЛЯ! \n{update.message.text}/1={int(result)}' )
+        else:
+            update.message.reply_text(f'ВУАЛЯ! \n{update.message.text}/1={result}' )
     except (ZeroDivisionError, TypeError, ValueError):
         update.message.reply_text(f'Блин блинский! "{update.message.text}" - это не число. \nПопробуй ещё раз')
 
+
+  
     
-
-
 def main():
     mybot = Updater(settings.BOT_KEY, use_context=True)
 
